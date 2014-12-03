@@ -239,4 +239,4 @@ pip-log.txt
 *.blg
 
 # R
-#.Rhistory
+.Rhistory
