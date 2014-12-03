@@ -1,3 +1,5 @@
+# LOAD PACKAGES ################################################################
+library("randomForest")
 # FUNCTIONS ####################################################################
 ## PLOT DATA - PLOT THE RAW DATA IN AN UNIQUE IMAGE ############################
 plotData <- function(){
@@ -36,4 +38,5 @@ numTrain <- dim(train)[1]
 numFetus <- sort(unique(train$UID))
 
 train_fetus_1 <- subset(data , UID == 4)
-View(train_fetus_1)
+
+randomForest(data)

@@ -237,3 +237,6 @@ pip-log.txt
 # BibTeX
 *.bbl
 *.blg
+
+# R
+#.Rhistory
