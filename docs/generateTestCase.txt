@@ -1,0 +1,159 @@
+    boolean generateTestCase(int testCase, String[] exampleData, String[] provisionalData, String[] systemData) {
+        Random rnd = new Random(******);
+        String[] must = null;
+        HashMap< String, ArrayList<String> > both = new HashMap< String, ArrayList<String> >();
+
+        int numExample = exampleData.length;
+        int numPro = provisionalData.length;
+        int numSys = systemData.length;
+
+        if (testCase <= NUM_EXAMPLE) {
+            // example
+            must = new String[0];
+            for (int i = 0; i < numExample; ++ i) {
+                String[] tokens = exampleData[i].split(",");
+                if (tokens.length != NUM_COLUMNS) {
+                    return false;
+                }
+                String oid = tokens[0];
+                if (both.get(oid) == null) {
+                    both.put(oid, new ArrayList<String>());
+                }
+                both.get(oid).add(exampleData[i]);
+            }
+        } else if (testCase <= NUM_PROVISIONAL) {
+            // provisional
+            must = new String[numExample];
+            for (int i = 0; i < numExample; ++ i) {
+                must[i] = exampleData[i];
+            }
+            for (int i = 0; i < numPro; ++ i) {
+                String[] tokens = provisionalData[i].split(",");
+                if (tokens.length != NUM_COLUMNS) {
+                    return false;
+                }
+                String oid = tokens[0];
+                if (both.get(oid) == null) {
+                    both.put(oid, new ArrayList<String>());
+                }
+                both.get(oid).add(provisionalData[i]);
+            }
+        } else if (testCase <= NUM_SYSTEM) {
+            // system
+            int numProvSecret = (int)(numPro * 0.15);
+            numPro = numPro - numProvSecret;
+
+            must = new String[numExample + numPro];
+            for (int i = 0; i < numExample; ++ i) {
+                must[i] = exampleData[i];
+            }
+            for (int i = 0; i < numPro; ++ i) {
+                must[i + numExample] = provisionalData[i];
+            }
+            for (int i = 0; i < numSys; ++ i) {
+                String[] tokens = systemData[i].split(",");
+                if (tokens.length != NUM_COLUMNS) {
+                    return false;
+                }
+                String oid = tokens[0];
+                if (both.get(oid) == null) {
+                    both.put(oid, new ArrayList<String>());
+                }
+                both.get(oid).add(systemData[i]);
+            }
+        } else {
+            return false;
+        }
+
+        ArrayList<String> oids = new ArrayList<String>();
+
+        for (Map.Entry<String, ArrayList<String>> entry : both.entrySet()) {
+            oids.add(entry.getKey());
+        }
+        for (int i = oids.size() - 1; i > 0; i--) {
+            int newIdx = rnd.nextInt(i + 1);
+            String temp = oids.get(i);
+            oids.set(i, oids.get(newIdx));
+            oids.set(newIdx, temp);
+        }
+
+        int numMust = must.length;
+
+        int numRefund = (int)(oids.size() * 0.66);
+        //only for system tests
+        if(testCase > NUM_PROVISIONAL) {
+            oids.subList((int)(oids.size() * 0.93),oids.size()).clear();
+        }
+
+        int numTrain = numMust;
+        int numTest = 0;
+
+        for (int i = 0; i < oids.size(); ++ i) {
+            String setID = oids.get(i);
+            if (i < numRefund) {
+                numTrain += both.get(setID).size();
+            } else {
+                numTest += both.get(setID).size();
+            }
+        }
+
+        // build the training data and testing data
+        trainingData = new String[numTrain];
+        testingData = new String[numTest];
+        groundTruth = new String[numTest];
+        for (int i = 0; i < numMust; ++ i) {
+            trainingData[i] = must[i];
+        }
+
+        int trainPtr = numMust, testPtr = 0;
+
+        for (int i = 0; i < oids.size(); ++ i) {
+            String oid = oids.get(i);
+            if (i < numRefund) {
+                ArrayList<String> list = both.get(oid);
+                for (int j = 0; j < list.size(); ++ j) {
+                    trainingData[trainPtr ++] = list.get(j);
+                }
+            } else {
+                ArrayList<String> list = both.get(oid);
+
+                int numLinesNotToChange = rnd.nextInt(list.size()/2 + 1);
+                int numLinesRemoveC = rnd.nextInt(list.size()-numLinesNotToChange + 1);
+                for (int j = 0; j < list.size(); ++ j) {
+
+                    String[] tokens = list.get(j).split(",");
+
+
+                    if (j < numLinesNotToChange || DEBUG_MODE) {
+                        groundTruth[testPtr] = new String(SKIPTEXT);
+                        testingData[testPtr ++] = list.get(j);
+                    } else {
+
+                        if (tokens.length != NUM_COLUMNS) {
+                            return false;
+                        }
+
+                        groundTruth[testPtr] = tokens[NUM_COLUMNS - 3] + "," + tokens[NUM_COLUMNS - 2] + "," + tokens[NUM_COLUMNS - 1];
+
+                        if(j < numLinesNotToChange + numLinesRemoveC) {
+                            tokens[NUM_COLUMNS - 1] = ".";
+                        } else {
+                            for (int k = 0; k < 3; ++k) {
+                                tokens[NUM_COLUMNS - 1 - k] = ".";
+                            }
+                        }
+                        int id = testPtr++;
+                        testingData[id] = "";
+                        for (int k = 0; k < NUM_COLUMNS; ++k) {
+                            if (!testingData[id].equals("")) {
+                                testingData[id] += ",";
+                            }
+                            testingData[id] += tokens[k];
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+    }

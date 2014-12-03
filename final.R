@@ -27,6 +27,13 @@ splitData <- function(dataframe, seed=NULL) {
 }
 
 # LOAD DATA ####################################################################
-data <- read.csv("data/data.csv", sep=",")
+data <- read.csv("data/data2.csv", sep=",")
 
 split <- splitData(data)
+train <- split$train
+
+numTrain <- dim(train)[1]
+numFetus <- sort(unique(train$UID))
+
+train_fetus_1 <- subset(data , UID == 4)
+View(train_fetus_1)
