@@ -1,5 +1,8 @@
 # LOAD PACKAGES ################################################################
+library("ROCR")
+library("Hmisc")
 library("randomForest")
+
 # FUNCTIONS ####################################################################
 ## PLOT DATA - PLOT THE RAW DATA IN AN UNIQUE IMAGE ############################
 plotData <- function(){
@@ -31,12 +34,20 @@ splitData <- function(dataframe, seed=NULL) {
 # LOAD DATA ####################################################################
 data <- read.csv("data/data2.csv", sep=",")
 
-split <- splitData(data)
-train <- split$train
+# CLEAN DATA ###################################################################
+ids <- unique(data[[1]])
 
-numTrain <- dim(train)[1]
-numFetus <- sort(unique(train$UID))
+#for(i in (1:length(ids))){
+#  a <- subset(data , id == ids[i])
+#  if(dim(a)[1] < 4) {
+#    print(paste( ids[i], "|", dim(a)[1]))
+#  }
+#}
+# SPLIT DATA ###################################################################
+inverseS <- matrix(c(
+  11.90869495, -7.523165469, -4.11222794,
+  -7.523165469, 13.5665806, -4.742982596,
+  -4.11222794, -4.742982596, 8.669060303
+  ), ncol=3)
 
-train_fetus_1 <- subset(data , UID == 4)
-
-randomForest(data)
+prediction <- data[, c("WTKG", "LENCM", "HCIRCM")]
