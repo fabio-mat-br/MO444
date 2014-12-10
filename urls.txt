@@ -1,0 +1,3 @@
+http://community.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16065&pm=13367
+http://community.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16153&pm=13478
+https://www.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16209&compid=45332

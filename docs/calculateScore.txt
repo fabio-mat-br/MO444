@@ -1,0 +1,82 @@
+            //rv is your solution array
+
+            double[][] inverseS = new double[3][3];
+            //                   W                         L                         C
+            inverseS[0][0] = 11.90869495; inverseS[0][1] = -7.523165469; inverseS[0][2] = -4.11222794;
+            inverseS[1][0] = -7.523165469; inverseS[1][1] = 13.5665806; inverseS[1][2] = -4.742982596;
+            inverseS[2][0] = -4.11222794; inverseS[2][1] = -4.742982596; inverseS[2][2] = 8.669060303;
+
+            double SSE = 0;
+            for (int i = 0; i < groundTruth.length; i++) {
+                if(!groundTruth[i].equals(SKIPTEXT)) {
+                    String[] line = rv[i].split(",");
+                    double wi = Double.parseDouble(line[0]);
+                    double li = Double.parseDouble(line[1]);
+                    double ci = Double.parseDouble(line[2]);
+                    String[] tokens = groundTruth[i].split(",");
+                    double realW = Double.parseDouble(tokens[0]);
+                    double realL = Double.parseDouble(tokens[1]);
+                    double realC = Double.parseDouble(tokens[2]);
+
+                    double deltaW = wi - realW;
+                    double deltaL = li - realL;
+                    double deltaC = ci - realC;
+
+                    double temp0 = deltaW * inverseS[0][0] + deltaL * inverseS[1][0] + deltaC * inverseS[2][0];
+                    double temp1 = deltaW * inverseS[0][1] + deltaL * inverseS[1][1] + deltaC * inverseS[2][1];
+                    double temp2 = deltaW * inverseS[0][2] + deltaL * inverseS[1][2] + deltaC * inverseS[2][2];
+
+                    double ei = temp0 * deltaW + temp1 * deltaL + temp2 * deltaC;
+
+                    SSE += ei;
+                }
+            }
+
+            double meanW = 0, meanL = 0, meanC = 0;
+            int cnt = 0;
+
+            for (int i = 0; i < trainingData.length; ++ i) {
+                String[] tokens = trainingData[i].split(",");
+
+                meanW += Double.parseDouble(tokens[NUM_COLUMNS - 3]);
+                meanL += Double.parseDouble(tokens[NUM_COLUMNS - 2]);
+                meanC += Double.parseDouble(tokens[NUM_COLUMNS - 1]);
+                cnt += 1;
+            }
+            meanW /= cnt;
+            meanL /= cnt;
+            meanC /= cnt;
+
+            double SSE0 = 0;
+            for (int i = 0; i < groundTruth.length; i++) {
+                if(!groundTruth[i].equals(SKIPTEXT)) {
+                    double wi = meanW;
+                    double li = meanL;
+                    double ci = meanC;
+                    String[] tokens = groundTruth[i].split(",");
+                    double realW = Double.parseDouble(tokens[0]);
+                    double realL = Double.parseDouble(tokens[1]);
+                    double realC = Double.parseDouble(tokens[2]);
+
+                    double deltaW = wi - realW;
+                    double deltaL = li - realL;
+                    double deltaC = ci - realC;
+
+                    double temp0 = deltaW * inverseS[0][0] + deltaL * inverseS[1][0] + deltaC * inverseS[2][0];
+                    double temp1 = deltaW * inverseS[0][1] + deltaL * inverseS[1][1] + deltaC * inverseS[2][1];
+                    double temp2 = deltaW * inverseS[0][2] + deltaL * inverseS[1][2] + deltaC * inverseS[2][2];
+
+                    double ei = temp0 * deltaW + temp1 * deltaL + temp2 * deltaC;
+
+
+                    SSE0 += ei;
+                }
+            }
+            double ratio = 1 - SSE / SSE0;
+            if (ratio < 0) {
+                ratio = 0;
+            }
+            if (ratio != ratio) {
+                return 0.0;
+            }
+            return 1000000 * ratio;
