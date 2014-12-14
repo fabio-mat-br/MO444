@@ -31,23 +31,61 @@ splitData <- function(dataframe, seed=NULL) {
   list(train=trainset, test=testset, validation=validationset)
 }
 
+splitSeq <- function(seq, seed=NULL){
+  if (!is.null(seed)) set.seed(seed)
+  index <- 1:length(seq)
+  
+  trainindex <- sample(index, trunc(length(index)*.8))
+  
+  trainset <- seq[trainindex ]
+  
+  subindex <- 1:length(trainset)
+  validationindex <- sample(subindex, trunc(length(subindex)*.8))
+  
+  validationset <- seq[-validationindex ]
+  trainset <- trainset[validationindex ]
+  
+  
+  testset <- seq[-trainindex]
+  list(train=trainset, test=testset, validation=validationset)
+}
 # LOAD DATA ####################################################################
-data <- read.csv("data/data2.csv", sep=",")
+data <- NULL
+data <- read.csv("data/data.csv", sep=",")
 
 # CLEAN DATA ###################################################################
-ids <- unique(data[[1]])
-
-#for(i in (1:length(ids))){
-#  a <- subset(data , id == ids[i])
-#  if(dim(a)[1] < 4) {
-#    print(paste( ids[i], "|", dim(a)[1]))
-#  }
-#}
+ids <- unique(data$id)
 # SPLIT DATA ###################################################################
-inverseS <- matrix(c(
-  11.90869495, -7.523165469, -4.11222794,
-  -7.523165469, 13.5665806, -4.742982596,
-  -4.11222794, -4.742982596, 8.669060303
-  ), ncol=3)
+split <- splitSeq(ids)
 
-prediction <- data[, c("WTKG", "LENCM", "HCIRCM")]
+train_id <- split$train
+train_data <- subset(data , id %in% train_id)
+
+for(i in 1:length(train_id)){
+  cur_data <- subset(train_data, id == train_id[i]);
+  if(dim(cur_data)[1] < 4){
+    train_data <- subset(train_data , id != train_id[i])
+  } else
+}
+
+t <- subset(train_data , id == 9)
+odv <- NULL
+for(i in 1:dim(t)[1]){
+  ultrasounds <- t$t_ultsnd
+  odv <- c(odv, t$odv2[i])
+  odv <- c(odv, t$odv3[i])
+  odv <- c(odv, t$odv4[i])
+  odv <- c(odv, t$odv5[i])
+  odv <- c(odv, t$odv6[i])
+  odv <- c(odv, t$odv7[i])
+  odv <- c(odv, t$odv8[i])
+  print(i)
+}
+
+inverseS <- matrix(c(
+   3554.42, -328.119,
+  -328.119, 133.511
+  ), ncol=2)
+
+#a   <-NULL
+#a$b <- 1
