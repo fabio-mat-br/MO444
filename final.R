@@ -1,5 +1,4 @@
 # LOAD PACKAGES ################################################################
-library("ROCR")
 library("Hmisc")
 library("randomForest")
 
@@ -65,13 +64,17 @@ for(i in 1:length(train_id)){
   cur_data <- subset(train_data, id == train_id[i]);
   if(dim(cur_data)[1] < 4){
     train_data <- subset(train_data , id != train_id[i])
-  } else
+  } else {
+    
+  }
 }
 
+# ONE BLOCK #################
 t <- subset(train_data , id == 9)
 odv <- NULL
-for(i in 1:dim(t)[1]){
-  ultrasounds <- t$t_ultsnd
+ultrasounds <- NULL
+ultrasounds <- t$t_ultsnd
+for(i in 2:dim(t)[1]){
   odv <- c(odv, t$odv2[i])
   odv <- c(odv, t$odv3[i])
   odv <- c(odv, t$odv4[i])
@@ -81,6 +84,22 @@ for(i in 1:dim(t)[1]){
   odv <- c(odv, t$odv8[i])
   print(i)
 }
+
+#usDiff <- odv[length(odv)] - odv[1]
+timeDiff <- ultrasounds[length(ultrasounds)] - ultrasounds[2]
+
+usDiff <- t$odv5[length(ultrasounds)] - t$odv5[2]
+
+slope <- NULL
+slope <- c(slope, t$odv2[length(ultrasounds)] - t$odv2[2] / timeDiff)
+slope <- c(slope, t$odv3[length(ultrasounds)] - t$odv3[2] / timeDiff)
+slope <- c(slope, t$odv4[length(ultrasounds)] - t$odv4[2] / timeDiff)
+slope <- c(slope, t$odv5[length(ultrasounds)] - t$odv5[2] / timeDiff)
+slope <- c(slope, t$odv6[length(ultrasounds)] - t$odv6[2] / timeDiff)
+slope <- c(slope, t$odv7[length(ultrasounds)] - t$odv7[2] / timeDiff)
+slope <- c(slope, t$odv8[length(ultrasounds)] - t$odv8[2] / timeDiff)
+
+# ONE BLOCK (END) #############
 
 inverseS <- matrix(c(
    3554.42, -328.119,
