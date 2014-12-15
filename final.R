@@ -69,6 +69,10 @@ for(i in 1:length(train_id)){
   }
 }
 
+
+
+
+
 # ONE BLOCK #################
 t <- subset(train_data , id == 9)
 odv <- NULL
@@ -82,12 +86,13 @@ for(i in 2:dim(t)[1]){
   odv <- c(odv, t$odv6[i])
   odv <- c(odv, t$odv7[i])
   odv <- c(odv, t$odv8[i])
-  print(i)
 }
 
 #usDiff <- odv[length(odv)] - odv[1]
+timeDiff <- NULL
 timeDiff <- ultrasounds[length(ultrasounds)] - ultrasounds[2]
 
+usDiff <- NULL
 usDiff <- t$odv5[length(ultrasounds)] - t$odv5[2]
 
 slope <- NULL
@@ -99,6 +104,17 @@ slope <- c(slope, t$odv6[length(ultrasounds)] - t$odv6[2] / timeDiff)
 slope <- c(slope, t$odv7[length(ultrasounds)] - t$odv7[2] / timeDiff)
 slope <- c(slope, t$odv8[length(ultrasounds)] - t$odv8[2] / timeDiff)
 
+# NORMALIZE #############################
+
+mean <- NULL
+mean <- sum(slope)/length(slope)
+memsum <- 0
+for(i in 1:length(slope)){
+  memsum <- memsum + ((slope[i] - mean)^2)
+  print(sqrt(memsum / (length(slope) - 1)))
+}
+std <- sqrt(memsum / (length(slope) - 1))
+# ############################################3
 # ONE BLOCK (END) #############
 
 inverseS <- matrix(c(

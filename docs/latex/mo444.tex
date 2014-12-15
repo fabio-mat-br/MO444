@@ -66,13 +66,13 @@ Abstract goes here.
 
 \section{Stunting}
 \subsection{Definition}
-According to \cite{Lewit}, ``Growth stunting is defined by comparing measurements of children's heights to the NCHS\footnote{National Center for Health Statistics} growth reference population: children who fall below the fifth percentile of the reference population in height for age are defined as stunted, regardless of the reason for their shortness. As an indicator of nutritional status, comparison of children's measurements with growth reference curves may be used differently for populations of children than for individual children. The fact that an individual child falls below the fifth percentile for height for age on a growth reference curve may reflect normal variation in growth within a population: the individual child may be short simply because both his parents were short and not because of inadequate nutrition. However, if substantially more than 5\% of an identified child population have height for age that is less than the fifth percentile on the reference curve, then the population is said to have a higher-than-expected prevalence of stunting, and inadequate nutrition is generally the first cause considered."
+According to \cite{Lewit}, ``Growth stunting is defined by comparing measurements of children's heights to the NCHS\footnote{National Center for Health Statistics} growth reference population: children who fall below the fifth percentile of the reference population in height for age are defined as stunted, regardless of the reason for their shortness. As an indicator of nutritional status, comparison of children's measurements with growth reference curves may be used differently for populations of children than for individual children. The fact that an individual child falls below the fifth percentile for height for age on a growth reference curve may reflect normal variation in growth within a population: the individual child may be short simply because both his parents were short and not because of inadequate nutrition. However, if substantially more than $5\%$ of an identified child population have height for age that is less than the fifth percentile on the reference curve, then the population is said to have a higher-than-expected prevalence of stunting, and inadequate nutrition is generally the first cause considered."
 
 \subsection {Causes}
 
 Inadequate nutrition is just one of several causes of growth stunting. Other contributors to stunting include chronic or recurrent infections, sometimes in combination with intestinal parasites. The prevalence of growth stunting, particularly among children under two years of age, can also reflect the prevalence of low birth weight in a population. Finally, in rare cases, growth stunting may reflect extreme psychosocial stress without nutritional deficiencies.
 
-The contributions of each of these causes to the growth stunting prevalence rate are only partly understood. One study concluded that from 20\% to 40\% of the prevalence of growth stunting in the first two years of life can be attributed to low birth weight. However, inadequate nutrition may still be implicated because some low weight births may be due to maternal nutritional deficiencies during pregnancy.
+The contributions of each of these causes to the growth stunting prevalence rate are only partly understood. One study concluded that from $20\%$ to $40\%$ of the prevalence of growth stunting in the first two years of life can be attributed to low birth weight. However, inadequate nutrition may still be implicated because some low weight births may be due to maternal nutritional deficiencies during pregnancy.
 
 Just as low birth weight and nutritional deficiencies are interrelated, so also are inadequate nutrition and the chronic or recurrent infections that are believed to contribute to growth stunting. There is evidence that even mild nutritional deficits can alter the immune response in children, before clinical signs of malnutrition occur, and that nutritional deficiencies during pregnancy can impair the infant's immune response after birth. Thus, the reasons for any given child's growth impairment may be complex. However, inadequate nutrition is a common theme that suggests a key focus for a policy response to the problem of growth stunting.
 
@@ -84,7 +84,7 @@ Children who suffer from growth retardation as a result of poor diets or recurre
 
 \subsection{Measuring stunting}
 
-Several important age-related differences and discontinuities in the reference growth curves are used to measure stunting. First, for children less than 24 months of age, growth is determined by measuring the length of a recumbent child. After 24 months, growth is determined by measuring the height of a standing child. Because length and height measurements are not equivalent, there is a natural discontinuity between growth curves for children below and above 24 months of age.
+Several important age-related differences and discontinuities in the reference growth curves are used to measure stunting. First, for children less than $24$ months of age, growth is determined by measuring the length of a recumbent child. After $24$ months, growth is determined by measuring the height of a standing child. Because length and height measurements are not equivalent, there is a natural discontinuity between growth curves for children below and above $24$ months of age.
 
 \begin{figure}
 \begin{center}
@@ -106,7 +106,8 @@ The WHO\footnote{World Health Organization} uses to classify stunting as height 
 \section{Problem statement}
 
 % Using the description 1
-Our goal is to determine a combination of early measures that would be a good predictor for birth weight. In pursuit of this goal, we have collected time series data from ultrasounds on pregnant mothers. We would like you to use this data to predict a child’s birth weight and birth date (days from pregnancy start).
+
+Using the statement described in \cite{topcoder}, we have the goal to determine a combination of early measures that would be a good predictor for birth weight. In pursuit of this goal, we have collected time series data from ultrasounds on pregnant mothers. We would like you to use this data to predict a child’s birth weight and birth date (days from pregnancy start).
 
 For each fetus given sex, status, and multiple ultrasound measurements(columns 5-12) during the pregnancy (time being the variable t.ultsnd). The data from the repeated ultrasounds provides a small time series that can be used for predicting the birth weight and day.
 
@@ -126,7 +127,7 @@ S^{-1} = \left( \begin{array}{cc}
 \label{eq:S1}
 \end{equation}
 
-Scores will be calculated as a generalized R2 measure of fit. This is calculated as follows. The total sum of errors for the submission will be calculated as $SSE = \sum(e_i)$.
+Scores will be calculated as a generalized $R^2$ measure of fit. This is calculated as follows. The total sum of errors for the submission will be calculated as $SSE = \sum(e_i)$.
 
 A baseline sum of squared error will be calculated by predicting the sample means for each fetus, that is the mean values of b and w for the current training set,
 
@@ -137,7 +138,34 @@ e_{0i} = (\bar{b} - b_{0i}, \bar{w} - w_{0i})S^{-1}(\bar{b} - b_{0i}, \bar{w} - 
 
 $$SSE_0 = \sum(e_{0i})$$
 
+\section{Development: numbers, results and dificulties}
 
+The dataset given in \cite{topcoder} is composed by $5651$ rows, with $14$ columns each row, as shown in \ref{table:definitions}.
+\begin{table*}
+\label{table:definitions}
+\begin{center}
+\begin{tabular}{rlll}
+Column  & Variable  & Type  &  Label/Description \\
+\hline
+   1    & Id        & int   &  Unique Fetus ID \\
+   2    & t.ultsnd  & float &  Estimated fetus gestational age from last menstrual recall date \\
+   3    & Sex       & int   &  $0$ = Male, $1$ = Female \\
+   4    & Status    & int   &  Maternal nutritional status ($1$ or $2$) \\
+ 5-12   & Odv       & float &  Dependent variables: Ultrasound observed measurements \\
+  13    & Birth Sz  & float &  Birth Weight ($w$) \\
+  14    & Duration  & float &  Pregnancy Duration, or Birthday ($b$) \\
+\end{tabular} 
+\caption {Dataset definition (from \cite{topcoder})}	
+\end{center}
+\end{table*}
+
+There were lines referencing the measurement of only one child but in different times and different values that must be considered and some data entries did not have enough records to evaluate with the $R$ script.
+
+The answer is not only a variable, but a vector with components. These kind of problems are more complicated than problems involving only a variable response.
+
+\section{Further studies}
+
+There's a lot of 
 
 \section{Charts}
 The charts below are from CDC\footnote{Center for Disease Control and Prevention} website and given the default curves of growth for girls and boys from the birth to 24 months.

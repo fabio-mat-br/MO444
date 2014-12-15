@@ -1,4 +1,6 @@
 \documentclass{beamer}
+\usetheme{Copenhagen}
+\usecolortheme{beaver}
 \usepackage{pdfpages}
 \usepackage[utf8]{inputenc}
 \usepackage[portuges,brazil,english]{babel}
@@ -43,41 +45,85 @@
 \newcommand{\CITEONE}[2]{\mbox{#1 \cite{#2}}}
 \newcommand{\CITETWO}[3]{\mbox{#1 and #2 \cite{#3}}}
 \newcommand{\CITEN}[2]{\mbox{#1 et al. \cite{#2}}}
-\begin{document}
-\begin{frame}
-\title[Crisis] % (optional, only for long titles)
-{The Economics of Financial Crisis}
-\subtitle{Evidence from India}
+
+%\setbeamercolor{alerted text}{fg=orange}
+%\setbeamercolor{background canvas}{bg=white}
+%\setbeamercolor{block body alerted}{bg=normal text.bg!90!black}
+%\setbeamercolor{block body}{bg=normal text.bg!90!black}
+%\setbeamercolor{block body example}{bg=normal text.bg!90!black}
+%\setbeamercolor{block title alerted}{use={normal text,alerted text},fg=alerted text.fg!75!normal text.fg,bg=normal text.bg!75!black}
+%\setbeamercolor{block title}{bg=blue}
+%\setbeamercolor{block title example}{use={normal text,example text},fg=example text.fg!75!normal text.fg,bg=normal text.bg!75!black}
+%\setbeamercolor{fine separation line}{}
+%\setbeamercolor{frametitle}{fg=brown}
+%\setbeamercolor{item projected}{fg=black}
+%\setbeamercolor{normal text}{bg=black,fg=blue}
+%\setbeamercolor{palette sidebar primary}{use=normal text,fg=normal text.fg}
+%\setbeamercolor{palette sidebar quaternary}{use=structure,fg=structure.fg}
+%\setbeamercolor{palette sidebar secondary}{use=structure,fg=structure.fg}
+%\setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
+%\setbeamercolor{section in sidebar}{fg=brown}
+%\setbeamercolor{section in sidebar shaded}{fg=grey}
+%\setbeamercolor{separation line}{}
+%\setbeamercolor{sidebar}{bg=red}
+%\setbeamercolor{sidebar}{parent=palette primary}
+%\setbeamercolor{structure}{bg=black, fg=green}
+%\setbeamercolor{subsection in sidebar}{fg=brown}
+%\setbeamercolor{subsection in sidebar shaded}{fg=grey}
+%\setbeamercolor{title}{fg=brown}
+%\setbeamercolor{titlelike}{fg=brown}
+
+\title[Child stuntedness] % (optional, only for long titles)
+{Child stuntedness}
+\subtitle{An overview from Machine Learning}
 \author[Author, Anders] % (optional, for multiple authors)
-{F.~Author\inst{1} \and S.~Anders\inst{2}}
+{F.~Brolesi\inst{1} \and F.~Luz\inst{2}}
 \institute[Universities Here and There] % (optional)
 {
   \inst{1}%
-  Institute of Computer Science\\
-  University Here
+  Is with the Institute of Computing \\
+  University of Campinas (Unicamp\footnote{\url{http://www.unicamp.br/unicamp/}})
   \and
   \inst{2}%
-  Institute of Theoretical Philosophy\\
-  University There
+  Is with the Institute of Computing\\
+  University of Campinas (Unicamp)
 }
 \date[KPT 2004] % (optional)
-{Conference on Presentation Techniques, 2004}
+{State University of Campinas, 2014}
 \subject{Computer Science}
-\end{frame}
+\begin{document}
+\frame{\titlepage}
+
 \begin{frame}
 \frametitle{Table of Contents}
-\tableofcontents[currentsection]
+\tableofcontents
 \end{frame}
 \begin{document}
   \begin{frame}
-    \frametitle{This is the first slide}
-    %Content goes here
+    \frametitle{Growth stunting}
+    ``Growth stunting is defined by comparing measurements of children's heights to the NCHS\footnote{National Center for Health Statistics} growth reference population: children who fall below the fifth percentile of the reference population in height for age are defined as stunted. As an indicator of nutritional status, comparison of children's measurements with growth reference curves may be used differently for populations of children than for individual children. However, if substantially more than 5\% of an identified child population have height for age that is less than the fifth percentile on the reference curve, then the population is said to have a higher-than-expected prevalence of stunting, and inadequate nutrition is generally the first cause considered."
   \end{frame}
   \begin{frame}
-    \frametitle{This is the second slide}
-    \framesubtitle{A bit more information about this}
-    %More content goes here
+    \frametitle{Child malnutrition}
+    \framesubtitle{Stunting trending}
+			\begin{figure}
+			\begin{center}
+				\includegraphics[width=0.99\columnwidth]{pics/unicef01}
+				\caption{\small{Child malnutriotion trend for stunting (According to Unicef).}}  
+			\end{center} 
+			\end{figure}  
   \end{frame}
+\begin{frame}
+\frametitle{Stunting around the world}
+ \begin{figure}
+\begin{center}
+	\includegraphics[width=0.99\textwidth]{pics/unicef02}
+	\caption{\small{Undernutrition contributes to half of all deaths in children under 5 and is widespread in Asia and Africa
+Percentage of under-five children who are stunted, 2008 - 2013).}}   
+\end{center} 
+\end{figure}  
+\end{frame}	
+	
 % etc
 \end{document}
 \end{document}
