@@ -240,3 +240,4 @@ pip-log.txt
 
 # R
 .Rhistory
+.Rproj.user
