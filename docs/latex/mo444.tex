@@ -46,7 +46,8 @@
 \newcommand{\CITEONE}[2]{\mbox{#1 \cite{#2}}}
 \newcommand{\CITETWO}[3]{\mbox{#1 and #2 \cite{#3}}}
 \newcommand{\CITEN}[2]{\mbox{#1 et al. \cite{#2}}}
-
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 %%% Report beginning %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%% Title and authors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -192,8 +193,9 @@ Note that
 \onecolumn
 
 \begin{table*}
+\resizebox{\textwidth}{!}{%
     \begin{tabular}{llllllllll}
-    Age (in months) & 3rd Percentile Length (in centimeters) & 5th Percentile Length (in centimeters) & 10th Percentile Length (in centimeters) & 25th Percentile Length (in centimeters) & 50th Percentile Length (in centimeters) & 75th Percentile Length (in centimeters) & 90th Percentile Length (in centimeters) & 95th Percentile Length (in centimeters) & 97th Percentile Length (in centimeters) \\
+    \specialcell{Age\\(in months)} & \specialcell{3rd Percentile\\(cm)} & \specialcell{5th Percentile\\(cm)} & \specialcell{10th Percentile\\(cm)} & \specialcell{25th Percentile\\(cm)} & \specialcell{50th Percentile\\(cm)} & \specialcell{75th Percentile\\(cm)} & \specialcell{90th Percentile\\(cm)} & \specialcell{95th Percentile\\(cm)} & \specialcell{97th Percentile\\(cm)} \\
 		\hline
     0               & 44.9251                                & 45.56841                               & 46.55429                                & 48.18937                                & 49.98888                                & 51.77126                                & 53.36153                                & 54.30721                                & 54.919                                  \\
     0.5             & 47.97812                               & 48.55809                               & 49.4578                                 & 50.97919                                & 52.69598                                & 54.44054                                & 56.03444                                & 56.99908                                & 57.62984                                \\
@@ -233,13 +235,14 @@ Note that
     34.5            & 87.86696                               & 88.70301                               & 90.00937                                & 92.24482                                & 94.80823                                & 97.45873                                & 99.92162                                & 101.4318                                & 102.4274                                \\
     35.5            & 88.49774                               & 89.33242                               & 90.63786                                & 92.87525                                & 95.44637                                & 98.11108                                & 100.5929                                & 102.1174                                & 103.1237                                \\
     \end{tabular}
-		
+		}
     \caption {Males, Ages Birth - $36$ Months}
+		
 \end{table*}
 
 \begin{table}
     \begin{tabular}{llllllllll}
-    Age (in months) & 3rd Percentile Length (in centimeters) & 5th Percentile Length (in centimeters) & 10th Percentile Length (in centimeters) & 25th Percentile Length (in centimeters) & 50th Percentile Length (in centimeters) & 75th Percentile Length (in centimeters) & 90th Percentile Length (in centimeters) & 95th Percentile Length (in centimeters) & 97th Percentile Length (in centimeters) \\
+    Age (in months) & 3rd Percentile (cm) & 5th Percentile (cm) & 10th Percentile (cm) & 25th Percentile (cm) & 50th Percentile (cm) & 75th Percentile (cm) & 90th Percentile (cm) & 95th Percentile (cm) & 97th Percentile (cm) \\
 		\hline
     0               & 45.09488                               & 45.57561                               & 46.33934                                & 47.68345                                & 49.2864                                 & 51.0187                                 & 52.7025                                 & 53.77291                                & 54.49527                                \\
     0.5             & 47.46916                               & 47.96324                               & 48.74248                                & 50.09686                                & 51.68358                                & 53.36362                                & 54.96222                                & 55.96094                                & 56.62728                                \\
