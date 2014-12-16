@@ -94,10 +94,6 @@
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}
-\frametitle{Table of Contents}
-\tableofcontents
-\end{frame}
 \begin{document}
   \begin{frame}
     \frametitle{Growth stunting}
@@ -123,6 +119,54 @@ Percentage of under-five children who are stunted, 2008 - 2013).}}
 \end{center} 
 \end{figure}  
 \end{frame}	
+
+\begin{frame}
+\frametitle{Problem statement}
+Using the statement described in \cite{topcoder}, we have the goal to determine a combination of early measures that would be a good predictor for birth weight. In pursuit of this goal, we have collected time series data from ultrasounds on pregnant mothers. We would like you to use this data to predict a child’s birth weight and birth date (days from pregnancy start).
+
+For each fetus given sex, status, and multiple ultrasound measurements(columns 5-12) during the pregnancy (time being the variable t.ultsnd). The data from the repeated ultrasounds provides a small time series that can be used for predicting the birth weight and day.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Dataset}
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.75\textheight]{pics/plot-data-1000}
+	\caption{The whole dataset plotted.\label{fig:dataset_full}}   
+\end{center} 
+\end{figure}  
+\end{frame}
+
+\begin{frame}
+\frametitle{Dataset}
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.66\columnwidth]{pics/birth_vs_duration}
+	\caption{Birth vs Duration plot according the dataset.\label{fig:birth_vs_duration}}   
+\end{center} 
+\end{figure}  
+\end{frame}	
+
+\begin{frame}
+\frametitle{Further studies}
+There's a lot of ways to understand the problem of stunting in child populations. The website Topcoder\footnote{\url{https://www.topcoder.com/}} recently released another two problems regarding this issue \footnote{\url{http://community.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16153&pm=13478} and \url{https://www.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16209&compid=45332}}.
+
+Some ways of understand of how to deal this problem permeates the ethnic differences, for instance.
+\end{frame} 
+\begin{frame}
+\frametitle{Further studies}
+This work clearly does not contain all the possibilities and variations that may occur in relation to the subject of malnutrition and stunting. The possibilities of dealing with this subject are diverse, so we propose the extrapolation to this discipline and continue the development of intelligent algorithms that can be in support of medical decisions to inform pregnant women about the nutrition of their children.
+\end{frame}
+
+\begin{frame}
+\nocite{*}
+\frametitle{References}
+{\small
+\bibliography{refs}
+}
+\end{frame}	
+
 	
 % etc
 \end{document}

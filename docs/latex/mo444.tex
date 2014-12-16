@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[portuges,brazil,english]{babel}
 \usepackage{model}
+
 \usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
@@ -51,13 +52,11 @@
 %%% Report beginning %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%% Title and authors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \title{Child stuntedness}
 \author{Fabio Fogliarini Brolesi\thanks{Is with the Institute of Computing, University of Campinas (Unicamp). \textbf{Contact}: \tt\small{fabio$\Theta$fabio.mat.br}}\\
 Francis Luz\thanks{Is with the Institute of Computing, University of Campinas (Unicamp). \textbf{Contact}: \tt\small{francis$\Theta$francisluz.com}}
 }
-
-%\tableofcontents
-%\listoffigures
 
 %%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \maketitle
@@ -120,6 +119,10 @@ e_i = (b_i - b_{0i}, w_i - w_{0i})^TS^{-1}(b_i - b_{0i}, w_i - w_{0i})'
 \end{equation}
 where $S^{-1}$ is the inverse of the sample covariance matrix calculated on the complete dataset.
 
+The Mahalanobis distance is a measure of the distance between a point $P$ and a distribution $D$, introduced by P. C. Mahalanobis in $1936$\cite{Mahalanobis}. It is a multi-dimensional generalization of the idea of measuring how many standard deviations away $P$ is from the mean of $D$. This distance is zero if $P$ is at the mean of $D$, and grows as $P$ moves away from the mean: Along each principal component axis, it measures the number of standard deviations from $P$ to the mean of $D$. If each of these axes is rescaled to have unit variance, then Mahalanobis distance corresponds to standard Euclidean distance in the transformed space. Mahalanobis distance is thus unitless and scale-invariant, and takes into account the correlations of the data set.
+
+
+
 \begin{equation}
 S^{-1} = \left( \begin{array}{cc}
 3554.42 & -328.119 \\
@@ -168,6 +171,25 @@ The answer is not only a variable, but a vector with components. These kind of p
 
 Some of the attributes are time series. We had to decide how to deal with it. Decide to stay with average and is an example; decide to work with the series implies having to think about how to include a number as an attribute, which is not trivial.
 
+
+Using the scripts we reached the value of $SSE = 62643.36994767563$.
+
+We didn't try another algorithms as kNN or random forest, for instance. During evaluation, the value of $Odv3$ respect to weight and the last measurement time for the birth date were important features.
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.99\columnwidth]{pics/birth_vs_duration}
+	\caption{Birth vs Duration plot according the dataset.\label{fig:birth_vs_duration}}   
+\end{center} 
+\end{figure}   
+
+\begin{figure*}
+\begin{center}
+	\includegraphics[width=0.99\textwidth]{pics/plot-data-1000}
+	\caption{The whole dataset plotted.\label{fig:dataset_full}}   
+\end{center} 
+\end{figure*} 
+
 \section{Further studies}
 
 There's a lot of ways to understand the problem of stunting in child populations. The website Topcoder\footnote{\url{https://www.topcoder.com/}} recently released another two problems regarding this issue \footnote{\url{http://community.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16153&pm=13478} and \url{https://www.topcoder.com/longcontest/?module=ViewProblemStatement&rd=16209&compid=45332}}.
@@ -180,10 +202,12 @@ For this problem, we are dealing with the issue of health information from child
 
 Thus, the ultimate goal is eventually to create a model that can help make decisions about whether to take action to reverse a possible framework for future child malnutrition, to the extent that we are evaluating the child from the womb breast.
 
-\section{Charts and Tables}
-The charts below are from CDC\footnote{Center for Disease Control and Prevention} website and given the default curves of growth for girls and boys from the birth to 24 months. 
+Use another kind of predictors (as kNN, Random forest) can bring new ways to evaluate the data. 
 
-Note that 
+The data is a few messy and in some times don't make sense. The enunciation isn't clearly. And there is another challenges at topcoder sites with respect this issues with more features and maybe more interesting to evaluate according Machine Learning.
+
+\section{Charts and Tables}
+The charts below are from CDC\footnote{Center for Disease Control and Prevention} website and given the default curves of growth for girls and boys from the birth to 24 months. This is helpful because using by parent's they can evaluate the children growth according medicine measurement.
 
 \includepdf[scale=0.8,pages={1}]{pdf/grchrt_girls_24lw_9210.pdf}
 \includepdf[scale=0.8,pages={1}]{pdf/grchrt_boys_24lw_100611.pdf}
@@ -241,6 +265,7 @@ Note that
 \end{table*}
 
 \begin{table}
+\resizebox{\textwidth}{!}{%
     \begin{tabular}{llllllllll}
     Age (in months) & 3rd Percentile (cm) & 5th Percentile (cm) & 10th Percentile (cm) & 25th Percentile (cm) & 50th Percentile (cm) & 75th Percentile (cm) & 90th Percentile (cm) & 95th Percentile (cm) & 97th Percentile (cm) \\
 		\hline
@@ -281,15 +306,18 @@ Note that
     33.5            & 85.95413                               & 86.85208                               & 88.24089                                & 90.57795                                & 93.19854                                & 95.84411                                & 98.24636                                & 99.69353                                & 100.6372                                \\
     34.5            & 86.54167                               & 87.44359                               & 88.83932                                & 91.1902                                 & 93.82945                                & 96.49721                                & 98.92246                                & 100.3848                                & 101.3388                                \\
     35.5            & 87.10349                               & 88.00937                               & 89.41196                                & 91.77639                                & 94.43382                                & 97.12307                                & 99.57056                                & 101.0475                                & 102.0116                                \\
-    \end{tabular}
+    \end{tabular} }
     \caption {Females, Ages Birth - 36 Months}
+		
 \end{table}
 
-\twocolumns
+\twocolumn
+\begingroup
 %%% References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nocite{*}
 {\small
 \bibliographystyle{unsrt}
 \bibliography{refs}
 }
+\endgroup
 \end{document}
